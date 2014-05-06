@@ -5,6 +5,8 @@ Bacula Status - Monitor your backups
 Tool developed to monitor the backups made by bacula. The goal is to provide a clear view of your backups in one tool for easy installation.
 
 > Developed in PHP, using the framework Symfony 2 and Netbeans IDE 8.
+>
+> Supports the ENs and PT_BR languages
 
 
 ####Screenshots
