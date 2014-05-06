@@ -1,0 +1,87 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>{{'title.pool.list'|trans}}</h2>    
+
+    {% for dataPool in listPools %}
+        <hr />
+        
+        <h4><a href="{{ path('bacula_job_status') }}?status=any&poolId={{ dataPool.id }}">
+                {{ dataPool.name|blob_convert }} 
+            </a>
+            <i id="icon{{dataPool.id}}" class="fa fa-minus-square-o pointer" onClick="$(this).showHideDiv($('#div{{dataPool.id}}'));"></i>
+        </h4>
+        <div id="div{{dataPool.id}}">
+            <table class="table-custom">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>{{'name'|trans}}</th>
+                        <th>{{'status'|trans}}</th>
+                        <th>{{'type'|trans}}</th>                
+                        <th>{{'total.size'|trans}}</th>
+                        <th>Jobs</th>
+                        <th>{{'title.use.duration'|trans}}</th>
+                        <th>{{'title.retention'|trans}}</th>
+                        <th>{{'title.last.written'|trans}}</th>                
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for media in dataPool.media %}
+                        <tr>
+                            <td class="text-right">{{ media.id }}</td>
+                            <td><a href="{{ path('bacula_job_status') }}?status=any&mediaId={{ media.id }}">
+                                    {{ media.name|blob_convert }} 
+                                </a>
+                            </td>
+                            <td><span class="{{media.statusColor}}">{{ media.status }}</span></td>
+                            <td>{{ media.type|blob_convert }}</td>
+                            <td class="text-right">
+                                {{ media.size }}
+                                
+                                {% if media.percent < 20 %}
+                                    {% set tpBar = 'progress-bar-success' %}
+                                {% elseif (media.percent > 20) and (media.percent < 70) %}
+                                    {% set tpBar = 'progress-bar-info' %}
+                                {% elseif (media.percent > 70) and (media.percent < 90) %}
+                                    {% set tpBar = 'progress-bar-warning' %}
+                                {% elseif media.percent > 90 %}
+                                    {% set tpBar = 'progress-bar-danger' %}
+                                {% else %}
+                                    {% set tpBar = 'progress-bar-success' %}
+                                {% endif %}                                
+                                
+                                
+                                <div class="progress progress-xs">                                    
+                                    <i rel="tooltip" title="{{ 'label.volume.usage'|trans}}: {{ media.percent }} %" data-placement="top">
+                                        <div class="progress-bar {{ tpBar }}" role="progressbar" aria-valuenow="{{ media.percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ media.percent }}%"></div>
+                                    </i>
+                                </div>
+                            </td>
+                            <td>{{ media.jobs }}</td>
+                            <td>{{ media.useDuration }}</td>
+                            <td>{{ media.retention }}</td>
+                            <td>{{ media.lastWritten }}</td>
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    <script>
+        $(document).ready(function() {
+            $("[rel=tooltip]").tooltip();
+
+            $("table").tablecloth({
+                striped: true,
+                sortable: true,
+                condensed: true
+            });
+        });
+
+    </script>
+{% endblock %}
+
+

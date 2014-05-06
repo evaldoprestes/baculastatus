@@ -1,0 +1,144 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %} {% block content %}
+<script src="{{ asset('bundles/baculastatus/js/custom.js') }}"></script>
+
+
+<div class="row">
+	<h3>{{'last.24.hours'|trans }}</h3>
+	<hr />
+
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+		<ul class="list-group no-margin">
+			<li class="list-group-item no-border-hr padding-xs-hr no-bg"><a
+				href="{{ path('bacula_job_status') }}?status=R">{{'status.running'|trans
+					}}</a> <span class="label label-primary pull-right">{{running}}</span>
+			</li>
+
+			<li class="list-group-item no-border-hr padding-xs-hr no-bg"><a
+				href="{{ path('bacula_job_status') }}?status=T">{{'status.terminated'|trans
+					}}</a> <span class="label label-success pull-right">{{success}}</span>
+			</li>
+
+			<li class="list-group-item no-border-hr padding-xs-hr no-bg"><a
+				href="{{ path('bacula_job_status') }}?status=A">{{'status.canceled'|trans
+					}}</a> <span class="label label-warning pull-right ">{{cancelled}}</span>
+			</li>
+			<li
+				class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
+				<a href="{{ path('bacula_job_status') }}?status={{flagError}}">{{'label.jobs.failed'|trans
+					}}</a> <span class="label label-danger pull-right ">{{error}}</span>
+			</li>
+		</ul>
+	</div>
+
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+		<div class="stats">
+			<h1 class="number">{{totalFiles|number_format(0, ',', '.')}}</h1>
+			<p class="avg">{{'files'|trans }}</p>
+		</div>
+		<div class="stats">
+			<h1 class="number">{{totalSize}}</h1>
+			<p class="avg">{{'total.size'|trans }}</p>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<h6 class="text-center graphTitle">{{'title.graph.total.mb.hour'|trans}}</h6>
+		<div id="graph24Hour" style="height: 160px;"></div>
+		<script type="text/javascript">
+                $(function () {
+                    Morris.Bar({
+                        element: 'graph24Hour',                        
+                        data: {{ graph24Hour|raw }},
+                        hoverCallback: function(index, options, content) {
+                            var row = options.data[index];
+                            return "{{'hour'|trans}}: " + row.label + " <br /> " + row.formatted;                            
+                        },
+                        xkey: 'label',
+                        ykeys: ['value'],
+                        labels: ['Value'],
+                        parseTime: false,
+                        axes: false,                        
+                    });
+                });
+            </script>
+	</div>
+
+
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+		<h6 class="text-center graphTitle">{{'title.graph.jobs.pool'|trans}}</h6>
+		<div id="graphPool" style="height: 160px;"></div>
+		<script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphPool',
+                        data: {{ graphPool|raw }} 
+                    });
+                });
+            </script>
+
+
+
+	</div>
+
+</div>
+
+<div class="row">
+	<h3>{{'this.month'|trans }}</h3>
+	<hr />
+
+	<!-- Graph total daily bytes copied -->
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+		<h6 class="text-center graphTitle">{{'title.graph.total.mb.day'|trans}}</h6>
+		<div id="graphBytesDay" style="height: 160px;"></div>
+		<script type="text/javascript">
+                $(function () {
+                    Morris.Bar({
+                        element: 'graphBytesDay',                        
+                        data: {{ graphBytesDay|raw }},
+                        hoverCallback: function(index, options, content) {
+                            var row = options.data[index];
+                            return "{{'day'|trans}}: " + row.label + " <br /> " + row.formatted;                            
+                        },
+                        xkey: 'label',
+                        ykeys: ['value'],
+                        labels: ['Value'],
+                        parseTime: false,
+                        axes: false,                        
+                    });
+                });
+            </script>
+
+	</div>
+
+	<!-- Graph total daily bytes stored -->
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		<h6 class="text-center graphTitle">{{'title.graph.total.stored'|trans}}</h6>
+		<div id="graphTotalStored" style="height: 160px;"></div>
+		<script type="text/javascript">
+                $(function () {
+                    Morris.Line({
+                        element: 'graphTotalStored',                        
+                        data: {{ graphTotalStored|raw }},
+                        hoverCallback: function(index, options, content) {
+                            var row = options.data[index];
+                            return "{{'day'|trans}}: " + row.label + " <br /> " + row.formatted;                            
+                        },
+                        xkey: 'label',
+                        ykeys: ['value'],
+                        labels: ['Value'],
+                        parseTime: false,
+                        axes: false,                        
+                    });
+                });
+            </script>
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+

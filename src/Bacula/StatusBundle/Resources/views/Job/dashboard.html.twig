@@ -1,0 +1,142 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>{{ 'label.dashboard'|trans }} - Jobs</h2>    
+
+    <div class="container">
+        <form method="get" class="form">
+            <div class="row">
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker1">{{'label.dt.ini'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+
+                            <input name="dt_ini" type='datetime' class="form-control" required="required"  value="{{ dt_ini }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker2">{{'label.dt.end'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input name="dt_end" type='datetime' class="form-control" required="required"  value="{{ dt_end }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>  
+                    <div class="form-group vcenter">
+                        <button id="submit" type="submit"  class="btn btn-success">
+                            <span class="glyphicon glyphicon-ok-sign"></span> {{'label.filter'|trans}}
+                        </button>
+                    </div>
+                </div>    
+            </div>
+
+
+        </form>
+    </div>  
+
+    <hr />
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.jobs.type'|trans}}</h6>
+            <div id="graphJobType" style="height: 200px;"></div>
+            <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphJobType',
+                        data: {{ graphJobType|raw }} 
+                    });
+                });           
+            </script>               
+        </div>  
+                    
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.jobs.status'|trans}}</h6>
+            <div id="graphJobStatus" style="height: 200px;"></div>
+            <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphJobStatus',
+                        data: {{ graphJobStatus|raw }} 
+                    });
+                });           
+            </script>               
+        </div>  
+                    
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.jobs.level'|trans}}</h6>
+            <div id="graphJobLevel" style="height: 200px;"></div>
+            <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphJobLevel',
+                        data: {{ graphJobLevel|raw }} 
+                    });
+                });           
+            </script>               
+        </div>                      
+    </div>    
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <h6 class="text-center graphTitle">{{'title.graph.total.jobs'|trans}}</h6>
+            <div id="graphTotalJobs" style="height: 300px;"></div>
+            <script type="text/javascript">
+                        $(function() {
+                        Morris.Bar({
+                        element: 'graphTotalJobs',
+                                data:{{ graphTotalJobs|raw }},
+                                xkey: 'label',
+                                ykeys: ['value'],
+                                labels: ['Value'],
+                                parseTime: false,
+                                axes: false,
+                        });
+                        });</script>              
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <h6 class="text-center graphTitle">{{'title.graph.total.jobs.files'|trans}}</h6>
+            <div id="graphTotalFiles" style="height: 300px;"></div>
+            <script type="text/javascript">
+                        $(function() {
+                        Morris.Bar({
+                        element: 'graphTotalFiles',
+                                data:{{ graphTotalFiles|raw }},
+                                xkey: 'label',
+                                ykeys: ['value'],
+                                labels: ['Value'],
+                                parseTime: false,
+                                axes: false,
+                        });
+                        });</script>              
+        </div>                        
+    </div>
+
+    <script type="text/javascript">
+                $(document).ready(function() {
+
+        $('#datetimepicker1').datetimepicker({
+        language: '{{ app.request.locale }}'
+        });
+                $('#datetimepicker2').datetimepicker({
+        language: '{{ app.request.locale }}'
+        });
+                $("table").tablecloth({
+        striped: true,
+                sortable: true,
+                condensed: true
+        });
+        });
+
+    </script>  
+{% endblock %}
+
+

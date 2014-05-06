@@ -1,0 +1,58 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>{{'title.client.list'|trans}}</h2>    
+
+
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{{'name'|trans}}</th>
+                <th>{{'label.so'|trans}}</th>
+                <th>{{'label.file.retention'|trans}}</th>                
+                <th>{{'label.job.retention'|trans}}</th>
+                <th>Autoprume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in listClients %}
+                <tr>
+                    <td class="text-right">{{ client.id }}</td>
+                    <td> <a href="{{ path('bacula_job_status') }}?status=any&clientId={{ client.id }}">
+                            {{ client.name|blob_convert }} 
+                        </a>
+                    </td>
+                    <td>{{ client.so|blob_convert }}</td>
+                    <td class="text-right">{{ client.fileRetention }}</td>
+                    <td class="text-right">{{ client.jobRetention }}</td>
+                    <td class="text-center">
+                        {% if client.autoPrume %}
+                            <i class="fa fa-check green" rel="tooltip" title="{{'label.yes'|trans}}"></i>
+                        {% else %}
+                            <i class="fa fa-times red" rel="tooltip" title="{{'label.yes'|trans}}"></i>
+                        {% endif %}    
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("[rel=tooltip]").tooltip();
+
+        $("table").tablecloth({
+            striped: true,
+            sortable: true,
+            condensed: true
+        });
+    });
+
+</script>
+{% endblock %}
+
+

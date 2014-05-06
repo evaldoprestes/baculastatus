@@ -1,0 +1,28 @@
+Bacula Status - Monitor your backups
+
+Requeriments:
+------------------------------------------------------------------------------------
+- Apache
+- PHP 5.x
+- Enabled php-intl extension
+- Connection data of bacula database
+
+
+Installation 
+------------------------------------------------------------------------------------
+1) Set the default timezone in php.ini 
+
+2) Unzip the package within your web server (eg: /var/www/html/) 
+
+3) write permission for the user apache in baculastatus/app/cache 
+   directory (eg /var/www/html/baculastatus/app/cache). 
+
+4) write permission for the user apache in baculastatus/app/log directory 
+   (eg /var/www/html/baculastatus/app/log). 
+
+5) Delete everything you have within the directory "baculastatus/app/cache"
+
+6) Enter the data connection to the database file in the bacula 
+   "baculastatus /app/config/parameters.yml" 
+
+7) Point your browser to the address http://yourserver/baculastatus/

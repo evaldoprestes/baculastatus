@@ -1,0 +1,98 @@
+.table-custom {
+  border:1px solid #D0D7E9;
+  border-collapse: collapse;
+  *border-collapse: collapsed;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0 !important;
+  font-family:helvetica,arial,sans-serif;
+  color:#333;
+  box-shadow:0 2px 2px #E5E5E5;
+}
+.table-custom caption {
+  
+}
+.table-custom.table-bordered {
+  border-left: 0;
+}
+.table-custom thead tr th {
+  font-size:12px;
+  font-weight:bold;
+  background:#ccc;
+  color:#000;
+  border-radius:0 !important;
+  border: 1px solid #eee;
+  border-top:none;
+  padding: 4px;
+  background:#DDD;
+  background-image: linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -o-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -moz-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -webkit-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -ms-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -webkit-gradient(linear,	left bottom,left top,color-stop(0, #E8E8E8),color-stop(1, #CECECE));  
+}
+.table-custom th,
+.table-custom td {
+  background:#FFF;
+  color:#666;
+  box-shadow:inset 0 1px 0 #D0D7E9;
+  border-top:none;
+  border: 1px solid #E5E5E5;
+  border-radius:0 !important;
+  font-size: 10pt;
+}
+.table-custom th.headerSortable:hover {
+  cursor:pointer;
+}
+.table-custom th.headerSortDown { background-color:#A5A5A5; }
+.table-custom th.headerSortUp { background-color:#A5A5A5; }
+.table-custom.table-bordered th, .table-custom.table-bordered td {
+  box-shadow:inset 0 1px 0 #D0D7E9, inset 1px 0 0 #D0D7E9;
+  border-left:none;
+  border-top:none;
+}
+.table-custom.table-bordered tbody td:nth-child(2) {
+  box-shadow:inset 0 1px 0 #D0D7E9;
+  border-left:none;
+  border-top:none;
+}
+.table-custom.table-striped tbody tr:nth-child(even) td,
+.table-custom.table-striped tbody tr:nth-child(even) th,
+.table-custom.table-striped tbody tr:nth-child(even):hover td,
+.table-custom.table-striped tbody tr:nth-child(even):hover th {
+  background-color: #F4F6F9;
+}
+.table-custom.table-striped tbody tr:nth-child(odd) td,
+.table-custom.table-striped tbody tr:nth-child(odd) th,
+.table-custom.table-striped tbody tr:nth-child(odd):hover td,
+.table-custom.table-striped tbody tr:nth-child(odd):hover th {
+  background-color: #FFF;
+}
+.table-custom thead:first-child tr:first-child th,
+.table-custom tbody:first-child tr:first-child th,
+.table-custom tbody:first-child tr:first-child td {
+  box-shadow:none !important;
+  border-top:none !important;
+}
+.table-custom tbody tr th:first-child,
+.table-custom tbody tr td:first-child {  
+  padding-left:10px;
+}
+
+.table-custom th.headerSortDown {
+  background-image: url('../images/asc.gif');
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right:16px !important;  
+  background-color: #B7B7B7;
+}
+.table-custom th.headerSortUp {
+  background-image: url('../images/desc.gif');
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right:16px !important;
+  background-color: #B7B7B7;
+}

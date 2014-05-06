@@ -1,0 +1,176 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>{{'title.jobs.list'|trans}}</h2>
+    <hr />
+
+    <div class="container">
+        <form method="get" class="form">
+            <div class="row">
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker1">{{'label.dt.ini'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+
+                            <input name="dt_ini" type='datetime' class="form-control" required="required" value="{{ dt_ini }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker2">{{'label.dt.end'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input name="dt_end" type='datetime' class="form-control" required="required" value="{{ dt_end }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="status">{{'status'|trans}}</label>
+                    <div class="form-group">
+                        <select name="status"  class="form-control" id="status">
+                            <option value="any">&nbsp;</option>
+                            {% for key, item in listStatus %}
+                                {% if key == status %}
+                                    <option value="{{key}}" selected>{{item|trans}}</option>                                    
+                                {% else %}
+                                    <option value="{{key}}">{{item|trans}}</option>
+                                {% endif %}                                
+                            {% endfor %}
+                        </select>
+
+                    </div>                    
+                </div> 
+            </div>           
+                
+            <div class="row">    
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="clientId">{{'client'|trans}}</label>
+                    <div class="form-group">
+                        <select name="clientId"  class="form-control" id="clientId">                            
+                            <option value="any">&nbsp;</option>
+                            {% for clt in listClients %}
+                                {% if clientId == clt.clientId %}
+                                    <option value="{{clt.clientId}}" selected>{{clt.name|blob_convert}}</option>                                    
+                                {% else %}
+                                    <option value="{{clt.clientId}}">{{clt.name|blob_convert}}</option>
+                                {% endif %}                                
+                            {% endfor %}
+                        </select>
+                    </div>                    
+                </div>                
+
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="poolId">Pool</label>
+                    <div class="form-group">
+                        <select name="poolId"  class="form-control" id="poolId">
+                            <option value="any">&nbsp;</option>
+                            {% for poolObj in listPools %}
+                                {% if poolId == poolObj.poolId %}
+                                    <option value="{{poolObj.poolId }}" selected>{{poolObj.name|blob_convert}}</option>                                    
+                                {% else %}
+                                    <option value="{{poolObj.poolId }}">{{poolObj.name|blob_convert}}</option>
+                                {% endif %}                                
+                            {% endfor %}
+                        </select>
+                    </div>                    
+                </div> 
+                        
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="mediaId">{{ 'label.media'|trans }}</label>
+                    <div class="form-group">
+                        <select name="mediaId"  class="form-control" id="mediaId">
+                            <option value="any">&nbsp;</option>
+                            {% for media in listMedia %}
+                                {% if mediaId == media.mediaId %}
+                                    <option value="{{media.mediaId }}" selected>{{media.volumeName|blob_convert}}</option>                                    
+                                {% else %}
+                                    <option value="{{media.mediaId }}">{{media.volumeName|blob_convert}}</option>
+                                {% endif %}                                
+                            {% endfor %}
+                        </select>
+                    </div>                    
+                </div>                         
+                        
+                <div class='col-sm-4 col-xs-12'>  
+                    <div class="form-group vcenter">
+                    <button id="submit" type="submit"  class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok-sign"></span> {{'label.filter'|trans}}
+                    </button>
+                    </div>
+                </div>    
+            </div>
+
+
+        </form>
+    </div>  
+
+    <hr />
+    <table class="table-custom" id="table_list">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>JobId</th>
+                <th>{{'client'|trans}}</th>
+                <th>{{'job.name'|trans}}</th>
+                <th>{{'start.time'|trans}}</th>
+                <th>{{'job.type'|trans}}</th>
+                <th>{{'job.level'|trans}}</th>
+                <th>{{'pool'|trans}}</th>
+                <th>{{'files'|trans}}</th>
+                <th>{{'total.size'|trans}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in listJobs %}            
+                <tr>
+                    <td><i class="{{ job['class'] }}" rel="tooltip" title="{{job['status']|trans}}"></i></td>
+                    <td><a href="{{ path('bacula_job_log', {'jobId': job['jobId'] }) }}">
+                            {{ job['jobId'] }}
+                        </a>
+                    </td>
+                    <td>{{ job['client']|blob_convert}}</td>
+                    <td>{{ job['name']|blob_convert }}</td>
+                    <td>{{ job['startTime'] }}</td>
+                    <td>{{ job['type']|trans }}</td>
+                    <td>{{ job['level']|trans  }}</td>
+                    <td>{{ job['pool']|blob_convert }}</td>
+                    <td>{{ job['files'] }}</td>
+                    <td>{{ job['size'] }}</td>
+                </tr>
+
+            {% endfor %}    
+        </tbody>
+    </table>
+
+    {{ pagerfanta(listJobs, 'twitter_bootstrap3') }}        
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("[rel=tooltip]").tooltip({placement: 'right'});
+
+            $('#datetimepicker1').datetimepicker({
+                language: '{{ app.request.locale }}'
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                language: '{{ app.request.locale }}'
+            });
+            
+            $("table").tablecloth({              
+              striped: true,
+              sortable: true,
+              condensed: true
+            });            
+        });
+
+    </script>    
+{% endblock %}
+
+

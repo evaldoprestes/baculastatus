@@ -1,0 +1,4 @@
+bacula_status:
+    resource: "@BaculaStatusBundle/Resources/config/routing.yml"
+    prefix:   /
+

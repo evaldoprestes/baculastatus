@@ -1,0 +1,124 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+    <script>
+        $(document).ready(function() {
+            $('#jobTab a').click(function(e) {
+                e.preventDefault()
+                $(this).tab('show')
+            });
+        });
+    </script>
+    <h4>{{'title.job.log'|trans}}</h4>    
+    <hr />
+    <div class="col-md-12">
+        <div class="top-content">
+            <ul class="list-inline mini-stat">
+                <li>
+                    <h5>
+                        JobID
+                        <spam class="stat-value orange">{{ job['jobId'] }}</spam>                        
+                    </h5>
+                </li>
+                <li>
+                    <h5>
+                        {{ 'client'|trans }}
+                        <spam class="stat-value blue">{{ job['client']|blob_convert }}</spam>                        
+                    </h5>
+                </li>
+                <li>
+                    <h5>
+                        {{ 'job.name'|trans }}
+                        <spam class="stat-value blue">{{ job['name']|blob_convert }}</spam>                        
+                    </h5>
+                </li>                                 
+                <li>
+                    <h5>
+                        {{ 'start.time'|trans }}
+                        <spam class="stat-value blue">{{ job['startTime']|localizeddate('medium', 'none', locale, null, 'd/M/Y hh:mm') }}</spam>                        
+                    </h5>
+                </li>            
+                <li>
+                    <h5>
+                        {{ 'end.time'|trans }}
+                        <spam class="stat-value blue">{{ job['endTime']|localizeddate('medium', 'none', locale, null, 'd/M/Y hh:mm') }}</spam>                        
+                    </h5>
+                </li>  
+                <li>
+                    <h5>
+                        {{ 'total.time'|trans }}
+                        <spam class="stat-value blue">{{ job['totalTime'] }}</spam>                        
+                    </h5>
+                </li>                   
+            </ul>
+
+            <br />
+            <br />
+            <ul class="list-inline mini-stat">
+                <li>
+                    <h6>                        
+                        {{ 'status'|trans }}                        
+                        <spam class="stat-value green">
+                            <i class="{{ job['class'] }}" rel="tooltip" title="{{job['status']|trans}}"></i>                            
+                            {{ job['status']|trans }}
+                        </spam>
+                    </h6>
+                </li> 
+                <li>
+                    <h6>
+                        {{ 'job.level'|trans }}
+                        <spam class="stat-value green">{{ job['level']|trans }}</spam>
+                    </h6>
+                </li>    
+                <li>
+                    <h6>
+                        Pool
+                        <spam class="stat-value green">{{ job['pool']|blob_convert }}</spam>                        
+                    </h6>
+                </li>                
+                <li>
+                    <h6>
+                        {{ 'files'|trans }}
+                        <spam class="stat-value green">{{ job['files'] }}</spam>
+                    </h6>
+                </li>  
+                <li>
+                    <h6>
+                        {{ 'total.size'|trans }}
+                        <spam class="stat-value green">{{ job['size'] }}</spam>
+                    </h6>
+                </li>                
+            </ul>
+        </div>
+    </div>
+    &nbsp;       
+    <hr class="clearfix" />
+
+    <ul class="nav nav-tabs" id="jobTab">
+        <li class="active"><a href="#log">{{'log'|trans}}</a></li>
+        <li><a href="#files">{{'files'|trans}}</a></li>  
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="log">
+            <br />
+            {% for log in logJob %}     
+                {{log.logText|blob_convert|nl2br}}            
+            {% endfor %}  
+
+        </div>
+
+        <div class="tab-pane fade in" id="files">
+            <br />
+            {% for file in listFiles %}     
+                {{file.path|blob_convert|nl2br }}{{file.name|blob_convert|nl2br }}
+                <br />
+            {% endfor %}            
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+

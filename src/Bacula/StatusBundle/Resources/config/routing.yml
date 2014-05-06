@@ -1,0 +1,42 @@
+bacula_status_homepage:
+    pattern:  /
+    defaults: { _controller: BaculaStatusBundle:Default:index }
+
+bacula_status_client:
+    pattern: /client
+    defaults: { _controller: BaculaStatusBundle:Client:index }
+    
+#======================================================================
+# Jobs routing
+#======================================================================
+bacula_job_status:
+    pattern: /job/list/
+    defaults: { _controller: BaculaStatusBundle:Job:listJobs }
+    
+bacula_job_log:     
+    pattern: /job/display/{jobId}
+    defaults: { _controller: BaculaStatusBundle:Job:displayJob }
+
+bacula_job_dashboard:
+    pattern: /job/dashboard/
+    defaults: { _controller: BaculaStatusBundle:Job:dashboard }
+
+
+#======================================================================
+# Pools routing
+#======================================================================
+bacula_pools_list:
+    pattern: /pool/list/
+    defaults: { _controller: BaculaStatusBundle:Pool:listPools }
+
+#======================================================================
+# Clients routing
+#======================================================================
+bacula_client_list:    
+    pattern: /client/list/
+    defaults: { _controller: BaculaStatusBundle:Client:listClients }
+    
+bacula_client_dashboard:
+    pattern: /client/dashboard/
+    defaults: { _controller: BaculaStatusBundle:Client:dashboard }
+    

@@ -1,0 +1,139 @@
+{% extends "BaculaStatusBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>{{ 'label.dashboard'|trans }} - {{ 'client'|trans }}</h2>    
+    
+    <div class="container">
+        <form method="get" class="form">
+            <div class="row">
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker1">{{'label.dt.ini'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+
+                            <input name="dt_ini" type='datetime' class="form-control" required="required"  value="{{ dt_ini }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>
+                    <label for="datetimepicker2">{{'label.dt.end'|trans}}</label>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input name="dt_end" type='datetime' class="form-control" required="required"  value="{{ dt_end }}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-sm-4 col-xs-12'>  
+                    <div class="form-group vcenter">
+                    <button id="submit" type="submit"  class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok-sign"></span> {{'label.filter'|trans}}
+                    </button>
+                    </div>
+                </div>    
+            </div>
+
+
+        </form>
+    </div>  
+
+    <hr />
+    
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.jobs.client'|trans}}</h6>
+            <div id="graphJob" style="height: 300px;"></div>
+            <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphJob',
+                        data: {{ graphJob|json_encode()|raw }} 
+                    });
+                });
+            </script>   
+            
+            <table class="table table-condensed table-responsive">
+                {% for data in graphJob %}
+                <tr>
+                    <td>{{data['label']}}</td>
+                    <td>{{data['value']}}</td>
+                </tr>
+                {% endfor %}
+            </table>            
+        </div>
+                    
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.files.client'|trans}}</h6>
+            <div id="graphFiles" style="height: 300px;"></div>
+                        <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphFiles',
+                        data: {{ graphFiles|json_encode()|raw }} 
+                    });
+                });
+            </script>   
+            
+            <table class="table table-condensed table-responsive">
+                {% for data in graphFiles %}
+                <tr>
+                    <td>{{data['label']}}</td>
+                    <td>{{data['value']}}</td>
+                </tr>
+                {% endfor %}
+            </table>            
+        </div>
+                    
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <h6 class="text-center graphTitle">{{'title.graph.bytes.client'|trans}}</h6>
+            <div id="graphSize" class='text-center' style="height: 300px;"></div>
+            <script type="text/javascript">
+                $(function () {
+                    Morris.Donut({
+                        element: 'graphSize',
+                        data: {{ graphSize|json_encode()|raw }},
+                        formatter: function (x, data) { return data.formatted; }
+                    });
+                });
+            </script>  
+            
+            <table class="table table-condensed table-responsive">
+                {% for data in graphSize %}
+                <tr>
+                    <td>{{data['label']}}</td>
+                    <td>{{data['formatted']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>                    
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {            
+
+            $('#datetimepicker1').datetimepicker({
+                language: '{{ app.request.locale }}'
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                language: '{{ app.request.locale }}'
+            });
+            
+            $("table").tablecloth({              
+              striped: true,
+              sortable: true,
+              condensed: true
+            });            
+        });
+
+    </script>  
+{% endblock %}
+
+
