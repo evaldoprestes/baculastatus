@@ -5,12 +5,12 @@ parameters:
     database_port: null
     database_name: bacula
     database_user: bacula
-    database_password: bacula
+    database_password: r3ss0nanc1@
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    locale: pt_BR
+    locale: EN
     secret: 99773ff8ce6bce73472b4d410a3b947bc
     database_path: null
     pagination_per_page_show: 50

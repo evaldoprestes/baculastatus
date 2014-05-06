@@ -6,7 +6,7 @@ Tool developed to monitor the backups made by bacula. The goal is to provide a c
 
 > Developed in PHP, using the framework Symfony 2 and Netbeans IDE 8.
 >
-> Supports the ENs and PT_BR languages
+> Supports English (EN) and Brazilian Portuguese (PT_BR) languages.
 
 
 ####Screenshots
@@ -35,7 +35,7 @@ Installation
 
 5) Delete everything you have within the directory "baculastatus/app/cache"
 
-6) Enter the data connection to the database file in the bacula 
-   "baculastatus /app/config/parameters.yml" 
+6) In the file "baculastatus/app/config/parameters.yml" configure your database
+   data connection, locale and date_format variables.
 
 7) Point your browser to the address http://yourserver/baculastatus/
