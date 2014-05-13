@@ -15,4 +15,7 @@ parameters:
     database_path: null
     pagination_per_page_show: 50
     date_format: 'd/m/Y h:i' 
+    # Miliseconds to auto refresh page
     page_refresh_mseconds: 60000 
+    # Default time interval for reporting in days 
+    default_time_interval_report: 2

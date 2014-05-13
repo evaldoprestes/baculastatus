@@ -9,27 +9,32 @@ use Bacula\StatusBundle\Common\DefaultDefinitions;
 class DefaultController extends Controller {
 
     public function indexAction() {
-        $em = $this->getDoctrine()->getManager();
+        $em                 = $this->getDoctrine()->getManager();
         $defaultDefinitions = new DefaultDefinitions ();
 
         $jobRepository = $em->getRepository('BaculaStatusBundle:Job');
 
         // ----------------------------------------------------------------------
         //
-		// Get Last 24 hours statistics
+	// Shows the current status of bacula
         //
-		// ----------------------------------------------------------------------
-        $dtNow = new \DateTime('NOW');
-        $dt24hours = new \DateTime('NOW');
+	// ----------------------------------------------------------------------
+        $dtNow    = new \DateTime('NOW');
+        $dtIni    = new \DateTime('NOW');
+        $dtIniTrb = new \DateInterval('P7D');
+        $dtIni->sub($dtIniTrb);
+
+        $dt24hours   = new \DateTime('NOW');
         $last24hours = new \DateInterval('PT24H');
         $dt24hours->sub($last24hours); // get date/time of last 24 hours
         //
-		                                  // Total by status
-        $running = $jobRepository->getTotalByStatusPeriod('R', $dt24hours, $dtNow);
+        // Total by status
+        $running   = $jobRepository->getTotalByStatusPeriod('R', $dtIni, $dtNow);
         $cancelled = $jobRepository->getTotalByStatusPeriod('A', $dt24hours, $dtNow);
-        $success = $jobRepository->getTotalByStatusPeriod('T', $dt24hours, $dtNow);
-        $errorTmp = $jobRepository->getTotalByStatusPeriod('E', $dt24hours, $dtNow);
-        $error = $errorTmp;
+        $success   = $jobRepository->getTotalByStatusPeriod('T', $dt24hours, $dtNow);
+        $errorTmp  = $jobRepository->getTotalByStatusPeriod('E', $dt24hours, $dtNow);
+        $error     = $errorTmp;
+
         if ($errorTmp > 0) {
             $flagError = 'E';
         }
@@ -46,13 +51,28 @@ class DefaultController extends Controller {
             $flagError = 'f';
         }
 
+        $listWaiting = array('F', 'S', 'm', 'M', 's', 'j', 'c', 'd', 't', 'p','C');
+        $waiting     = 0;
+        $dtIniWaiting = \DateTime::createFromFormat('Y-m-d h:i:s', '0000-00-00 00:00:00');
+        foreach ($listWaiting as $st) {
+            //echo $st . ' ';
+            $waiting += $jobRepository->getTotalByStatusPeriod($st, NULL, NULL);
+        }
+
+        // ----------------------------------------------------------------------
+        //
+	// Get Last 24 hours statistics
+        //
+	// ----------------------------------------------------------------------
         // ....................................................................
         // Graph total bytes per hour
         // ....................................................................
-        $OneHourInterval = new \DateInterval('PT1H');
+
+        $OneHourInterval  = new \DateInterval('PT1H');
         $dataGraph24Hours = array();
-        $dtTmp24hours = new \DateTime('NOW');
+        $dtTmp24hours     = new \DateTime('NOW');
         $dtTmp24hours->sub($last24hours); // get date/time of last 24 hours
+
 
         while ($dtTmp24hours <= $dtNow) {
             $dtIniTmp = \DateTime::createFromFormat('Y-m-d H:i:s', $dtTmp24hours->format('Y-m-d H:00:00'));
@@ -98,24 +118,24 @@ class DefaultController extends Controller {
             'GB',
             'TB'
         );
-        $base = log($totalBytes) / log(1024);
+        $base  = log($totalBytes) / log(1024);
 
         $totalSize = round(pow(1024, $base - floor($base)), 2) . ' ' . $units [floor($base)];
 
         // ----------------------------------------------------------------------
         //
-		// Get this month statistcs
+	// Get this month statistcs
         //
-		// ----------------------------------------------------------------------
+	// ----------------------------------------------------------------------
         // ....................................................................
         // Volume bytes per day
         // Graph total bytes per day
         // ....................................................................
         $OneDayInterval = new \DateInterval('P1D');
-        $strDtIni = date('Y') . '-' . date('m') . '-01 00:00:00';
+        $strDtIni       = date('Y') . '-' . date('m') . '-01 00:00:00';
 
-        $dtTrb = \DateTime::createFromFormat('Y-m-d H:i:s', $strDtIni);
-        $dataTmp = array();
+        $dtTrb           = \DateTime::createFromFormat('Y-m-d H:i:s', $strDtIni);
+        $dataTmp         = array();
         $dataGraphPerDay = array();
 
         while ($dtTrb->format('Ymd') <= $dtNow->format('Ymd')) {
@@ -137,12 +157,12 @@ class DefaultController extends Controller {
         // Total bytes stored during by day in the month
         // ....................................................................
         $OneDayInterval = new \DateInterval('P1D');
-        $strDtIni = date('Y') . '-' . date('m') . '-01 00:00:00';
-        $strStartDate = '1970-' . date('m') . '-01 00:00:00';
+        $strDtIni       = date('Y') . '-' . date('m') . '-01 00:00:00';
+        $strStartDate   = '1970-' . date('m') . '-01 00:00:00';
 
-        $dtIni = \DateTime::createFromFormat('Y-m-d H:i:s', $strStartDate);
-        $dtTrb = \DateTime::createFromFormat('Y-m-d H:i:s', $strDtIni);
-        $dataTmp = array();
+        $dtIni                 = \DateTime::createFromFormat('Y-m-d H:i:s', $strStartDate);
+        $dtTrb                 = \DateTime::createFromFormat('Y-m-d H:i:s', $strDtIni);
+        $dataTmp               = array();
         $dataGraphStoredPerDay = array();
 
         while ($dtTrb->format('Ymd') <= $dtNow->format('Ymd')) {
@@ -165,6 +185,7 @@ class DefaultController extends Controller {
                     'success'          => $success,
                     'cancelled'        => $cancelled,
                     'error'            => $error,
+                    'waiting'          => $waiting,
                     'flagError'        => $flagError,
                     'graph24Hour'      => json_encode($graph24Hour, JSON_NUMERIC_CHECK),
                     'graphPool'        => json_encode($graphPool, JSON_NUMERIC_CHECK),
@@ -172,7 +193,7 @@ class DefaultController extends Controller {
                     'graphTotalStored' => json_encode($graphTotalStored, JSON_NUMERIC_CHECK),
                     'totalFiles'       => $totalFiles,
                     'totalSize'        => $totalSize
-                ));
+        ));
     }
 
 }

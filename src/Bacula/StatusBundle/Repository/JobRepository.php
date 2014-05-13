@@ -102,7 +102,7 @@ class JobRepository extends EntityRepository {
      * @param \DateTime $dtEnd
      * @return integer
      */
-    public function getTotalByStatusPeriod($status, \DateTime $dtIni, \DateTime $dtEnd) {
+    public function getTotalByStatusPeriod($status, \DateTime $dtIni = NULL, \DateTime $dtEnd = NULL) {
         $total = 0;
 
 
@@ -111,13 +111,19 @@ class JobRepository extends EntityRepository {
         $query = $em->createQueryBuilder()
                 ->select('count(j)')
                 ->from('BaculaStatusBundle:Job', 'j')
-                ->where('j.jobStatus = :jobStatus')
-                ->andWhere('j.startTime >= :dtIni')
-                ->andWhere('j.startTime <= :dtEnd')
-                ->setParameter('jobStatus', $status)
-                ->setParameter('dtIni', $dtIni->format('Y-m-d H:i:s'))
-                ->setParameter('dtEnd', $dtEnd->format('Y-m-d H:i:s'));
-
+                ->where('j.jobStatus = :jobStatus')                                
+                ->setParameter('jobStatus', $status);
+        
+        if (!empty($dtIni)) {
+            $query->andWhere('j.startTime >= :dtIni');
+            $query->setParameter('dtIni', $dtIni->format('Y-m-d H:i:s'));
+        }
+                
+        if (!empty($dtEnd)) {
+            $query->andWhere('j.startTime <= :dtEnd');
+            $query->setParameter('dtEnd', $dtEnd->format('Y-m-d H:i:s'));
+        }
+               
         $total = $query->getQuery()->getSingleScalarResult();
         return $total;
     }

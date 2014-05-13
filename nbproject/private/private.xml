@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Common/DefaultDefinitions.php</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/translations/messages.pt_BR.yml</file>
-            <file>file:/D:/www/baculastatus/INSTALL.PT_BR.txt</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/views/Client/dashboard.html.twig</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/views/Job/dashboard.html.twig</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/translations/messages.en.yml</file>
+            <file>file:/D:/www/baculastatus/doc/CHANGELOG</file>
+            <file>file:/D:/www/baculastatus/README.md</file>
             <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Repository/JobRepository.php</file>
             <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Controller/DefaultController.php</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/views/Job/listJobs.html.twig</file>
-            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Controller/JobController.php</file>
-            <file>file:/D:/www/baculastatus/INSTALL.EN.txt</file>
+            <file>file:/D:/www/baculastatus/src/Bacula/StatusBundle/Resources/views/Default/index.html.twig</file>
+            <file>file:/D:/www/baculastatus/app/config/parameters.yml</file>
+            <file>file:/D:/www/baculastatus/app/config/parameters.yml.dist</file>
         </group>
     </open-files>
 </project-private>

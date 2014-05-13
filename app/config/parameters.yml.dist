@@ -10,9 +10,12 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    locale: pt_BR
+    locale: EN
     secret: 99773ff8ce6bce73472b4d410a3b947bc
     database_path: null
     pagination_per_page_show: 50
     date_format: 'd/m/Y h:i' 
-    page_refresh_mseconds: 60000
+    # Miliseconds to auto refresh page
+    page_refresh_mseconds: 60000 
+    # Default time interval for reporting in days 
+    default_time_interval_report: 1

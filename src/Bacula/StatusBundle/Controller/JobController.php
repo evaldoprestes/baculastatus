@@ -27,9 +27,13 @@ class JobController extends Controller {
 
         // Default interval
         $dtNow = new \DateTime('NOW');
-        $dt24hours = new \DateTime('NOW');
-        $last24hours = new \DateInterval('PT24H');
-        $dt24hours->sub($last24hours); // get date/time of last 24 hours
+        $dtIniTrb = new \DateTime('NOW');        
+        
+        $strInterval = 'P'.$this->container->getParameter('default_time_interval_report').'D';
+        $interval = new \DateInterval($strInterval);        
+        
+        $dtIniTrb->sub($interval); // get default initial date/time interval
+        
         // Repository
         $jobRepository = $em->getRepository('BaculaStatusBundle:Job');
         $clientRepository = $em->getRepository('BaculaStatusBundle:Client');
@@ -49,7 +53,7 @@ class JobController extends Controller {
         $listMedia = $mediaRepository->findAll();
 
         // Get parameters
-        $dtIni = $request->query->get('dt_ini', $dt24hours);
+        $dtIni = $request->query->get('dt_ini', $dtIniTrb);
         $dtEnd = $request->query->get('dt_end', $dtNow);
         $status = $request->query->get('status', 'R');
         $page = $request->query->get('page', 1);
@@ -107,7 +111,7 @@ class JobController extends Controller {
 
         return $this->render('BaculaStatusBundle:Job:listJobs.html.twig', array(
                     'listJobs'    => $pagerFanta,
-                    'dtIni'       => $dt24hours,
+                    'dtIni'       => $dtIni,
                     'dtEnd'       => $dtNow,
                     'listStatus'  => $listStatus,
                     'listClients' => $listClients,
@@ -197,11 +201,15 @@ class JobController extends Controller {
         $translator = $this->get('translator');
 
         $dtNow = new \DateTime('NOW');
-        $dt24hours = new \DateTime('NOW');
-        $last24hours = new \DateInterval('PT24H');
-        $dt24hours->sub($last24hours); // get date/time of last 24 hours
+        $dtIniTrb = new \DateTime('NOW');
+        
+        $strInterval = 'P'.$this->container->getParameter('default_time_interval_report').'D';
+        $interval = new \DateInterval($strInterval);        
+        
+        //$last24hours = new \DateInterval('PT24H');
+        $dtIniTrb->sub($interval); // get date/time of last 24 hours
         // Get parameters
-        $dtIni = $request->query->get('dt_ini', $dt24hours);
+        $dtIni = $request->query->get('dt_ini', $dtIniTrb);
         $dtEnd = $request->query->get('dt_end', $dtNow);
 
         if (!$dtIni instanceof \DateTime) {

@@ -39,3 +39,13 @@ Installation
    data connection, locale and date_format variables.
 
 7) Point your browser to the address http://yourserver/baculastatus/
+
+
+Updating
+================
+1) Unzip the package within your web server (eg: /var/www/html/) 
+
+2) Delete everything you have within the directory "baculastatus/app/cache"
+
+3) In the file "baculastatus/app/config/parameters.yml" configure your database
+   data connection, locale and date_format variables.
