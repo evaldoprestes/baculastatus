@@ -81,7 +81,7 @@ log: Log
 
 # Menu itens
 menu.jobs.list: "List jobs"
-menu.pool.list: "List Pools"
+menu.pools.list: "List Pools"
 menu.client: "Clients"
 menu.client.list: "List Clients"
 
