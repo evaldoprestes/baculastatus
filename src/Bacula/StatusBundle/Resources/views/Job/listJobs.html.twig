@@ -10,25 +10,18 @@
             <div class="row">
                 <div class='col-sm-4 col-xs-12'>
                     <label for="datetimepicker1">{{'label.dt.ini'|trans}}</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-
-                            <input name="dt_ini" type='datetime' class="form-control" required="required" value="{{ dt_ini }}" />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="input-group date" id="datetimepicker1">
+                        <input name="dt_ini" type="text" class="form-control" data-date-format="{{ date_format_js }}" value="{{ dt_ini }}"/>
+                        <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                    </div>            
                 </div>
 
                 <div class='col-sm-4 col-xs-12'>
                     <label for="datetimepicker2">{{'label.dt.end'|trans}}</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker2'>
-                            <input name="dt_end" type='datetime' class="form-control" required="required" value="{{ dt_end }}" />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="input-group date" id="datetimepicker2">
+                        <input name="dt_end" type="text" class="form-control" data-date-format="{{ date_format_js }}" value="{{ dt_end }}"/>
+                        <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                    </div>                     
                 </div>
 
                 <div class='col-sm-4 col-xs-12'>
@@ -112,7 +105,7 @@
     </div>  
 
     <hr />
-    <table class="table-custom" id="table_list">
+    <table class="table table-striped table-bordered" id="table_list_job">
         <thead>
             <tr>
                 <th>#</th>
@@ -151,26 +144,7 @@
 
     {{ pagerfanta(listJobs, 'twitter_bootstrap3') }}        
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("[rel=tooltip]").tooltip({placement: 'right'});
-
-            $('#datetimepicker1').datetimepicker({
-                language: '{{ app.request.locale }}'
-            });
-
-            $('#datetimepicker2').datetimepicker({
-                language: '{{ app.request.locale }}'
-            });
-            
-            $("table").tablecloth({              
-              striped: true,
-              sortable: true,
-              condensed: true
-            });            
-        });
-
-    </script>    
+   
 {% endblock %}
 
 

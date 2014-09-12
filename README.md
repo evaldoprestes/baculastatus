@@ -1,5 +1,5 @@
-Bacula Status - Monitor your backups
-============
+#Bacula Status - Monitor your backups
+- - - - 
 
 
 Tool developed to monitor the backups made by bacula. The goal is to provide a clear view of your backups in one tool for easy installation.
@@ -12,17 +12,16 @@ Tool developed to monitor the backups made by bacula. The goal is to provide a c
 ####Screenshots
 [baculastatus album](https://plus.google.com/photos/109969415199973437597/albums/6008162396758304289)
 
+- - - - 
+### Requeriments:
 
-Requeriments:
-============
 - Apache
 - PHP 5.x
-- Enabled php-intl extension
 - Connection data of bacula database
 
+- - - - 
+### Installation 
 
-Installation 
-============
 1) Set the default timezone in php.ini 
 
 2) Unzip the package within your web server (eg: /var/www/html/) 
@@ -36,16 +35,32 @@ Installation
 5) Delete everything you have within the directory "baculastatus/app/cache"
 
 6) In the file "baculastatus/app/config/parameters.yml" configure your database
-   data connection, locale and date_format variables.
+   data connection, locale variables.
 
-7) Point your browser to the address http://yourserver/baculastatus/
+7) Configure your date format on parameters: "date_format_php" and "date_format_js". 
+   
+   >Heads up! Both parameters must be in the same format, changing only the mask of 
+   >each according to the documentation below:
+   >
+   >date_format_php: http://php.net/manual/en/function.date.php
+   >date_format_js: http://momentjs.com/docs/#/parsing/string-format/
+    
 
+8) Point your browser to the address *http://yourserver/baculastatus/*
 
-Updating
-================
+- - - - 
+### Updating
+
 1) Unzip the package within your web server (eg: /var/www/html/) 
 
 2) Delete everything you have within the directory "baculastatus/app/cache"
 
 3) In the file "baculastatus/app/config/parameters.yml" configure your database
-   data connection, locale and date_format variables.
+   data connection, locale variables.
+
+4) Configure your date format on parameters: <strong>"date_format_php"</strong> and <strong>"date_format_js"</strong>. 
+   Heads up! Both parameters must be in the same format, changing only the mask of 
+   each according to the documentation below:
+
+   date_format_php: http://php.net/manual/en/function.date.php
+   date_format_js: http://momentjs.com/docs/#/parsing/string-format/

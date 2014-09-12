@@ -1,3 +1,4 @@
+"date_format_php": 'd/m/Y h:i' 
 type.backup: "Backup"
 type.migrate: "Job migrado"
 type.verify: "Verificação"

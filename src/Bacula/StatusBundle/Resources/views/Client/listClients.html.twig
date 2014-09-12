@@ -5,7 +5,7 @@
     <h2>{{'title.client.list'|trans}}</h2>    
 
 
-    <table class="table-custom">
+    <table class="table table-striped table-bordered" id="table_list">
         <thead>
             <tr>
                 <th>Id</th>
@@ -41,18 +41,6 @@
     </table>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $("[rel=tooltip]").tooltip();
-
-        $("table").tablecloth({
-            striped: true,
-            sortable: true,
-            condensed: true
-        });
-    });
-
-</script>
 {% endblock %}
 
 

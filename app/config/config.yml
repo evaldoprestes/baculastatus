@@ -29,9 +29,10 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        locale: "%locale%"
-        date_format: "%date_format%"
+        locale: "%locale%"        
         page_refresh_mseconds: %page_refresh_mseconds%
+        date_format_php: %date_format_php%
+        date_format_js: %date_format_js%
     
 
 #enable intl extensions

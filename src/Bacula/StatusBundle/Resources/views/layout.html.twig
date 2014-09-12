@@ -3,25 +3,26 @@
 {% block stylesheets %}
     <link rel="icon" sizes="16x16" href="{{ asset('favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/bootstrap-theme.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/bootstrap-theme.min.css') }}" />    
     <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/font-awesome.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/dashboard.css') }}" />        
-    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/tablecloth_custom.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/dashboard.css') }}" />            
     <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/morris.css') }}" />
-    
-    <script src="{{ asset('bundles/baculastatus/js/jquery-1.11.0.min.js') }}"></script>
-    <script src="{{ asset('bundles/baculastatus/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/baculastatus/js/custom.js') }}"></script>    
-    <script src="{{ asset('bundles/baculastatus/js/moment-with-langs.min.js') }}"></script>    
-    <script src="{{ asset('bundles/baculastatus/js/bootstrap-datetimepicker.min.js') }}"></script>    
-    <script src="{{ asset('bundles/baculastatus/js/jquery.tablesorter.min.js') }}"></script>
-    <script src="{{ asset('bundles/baculastatus/js/jquery.tablecloth.js') }}"></script>
-    <script src="{{ asset('bundles/baculastatus/js/raphael-min.js') }}"></script>
-    <script src="{{ asset('bundles/baculastatus/js/morris.min.js') }}"></script>
-    
-    
+    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/bootstrap-datetimepicker.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/baculastatus/css/dataTables.bootstrap.css') }}" />
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/baculastatus/js/jquery-2.0.3.min.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/raphael-min.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/morris.min.js') }}"></script>            
+    <script src="{{ asset('bundles/baculastatus/js/moment-with-locales.js') }}"></script>                   
+    <script src="{{ asset('bundles/baculastatus/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/datatables/file-size.js') }}"></script>
+    <script src="{{ asset('bundles/baculastatus/js/custom.js') }}"></script>   
+{% endblock %}    
+
 
 {% block body %}
     

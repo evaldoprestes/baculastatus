@@ -62,11 +62,11 @@ class JobController extends Controller {
         $mediaId = $request->query->get('mediaId', "any");
 
         if (!$dtIni instanceof \DateTime) {
-            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtIni);
+            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtIni);
         }
 
         if (!$dtEnd instanceof \DateTime) {
-            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtEnd);
+            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtEnd);
         }
 
         $data = array();
@@ -87,7 +87,7 @@ class JobController extends Controller {
             $dataTmp['jobId'] = $job->getJobId();
             $dataTmp['client'] = $client->getName();
             $dataTmp['name'] = $job->getName();
-            $dataTmp['startTime'] = $job->getStartTime()->format($this->container->getParameter('date_format'));
+            $dataTmp['startTime'] = $job->getStartTime()->format($this->container->getParameter('date_format_php'));
             $dataTmp['type'] = $defaultDefinitions->getJobType(strtoupper($job->getType()));
             $dataTmp['level'] = $defaultDefinitions->getJobLevel(strtoupper($job->getLevel()));
             if ($pool instanceof \Bacula\StatusBundle\Entity\Pool) {
@@ -122,8 +122,8 @@ class JobController extends Controller {
                     'poolId'      => $poolId,
                     'mediaId'     => $mediaId,
                     'page'        => $page,
-                    'dt_ini'      => $dtIni->format($this->container->getParameter('date_format')),
-                    'dt_end'      => $dtEnd->format($this->container->getParameter('date_format'))
+                    'dt_ini'      => $dtIni->format($this->container->getParameter('date_format_php')),
+                    'dt_end'      => $dtEnd->format($this->container->getParameter('date_format_php'))
                         )
         );
     }
@@ -162,8 +162,8 @@ class JobController extends Controller {
             $dataJob['pool'] = '--';
         }
 
-        $dataJob['startTime'] = $job->getStartTime();
-        $dataJob['endTime'] = $job->getEndTime();
+        $dataJob['startTime'] = $job->getStartTime()->format($this->container->getParameter('date_format_php'));
+        $dataJob['endTime'] = $job->getEndTime()->format($this->container->getParameter('date_format_php'));
 
         $dtIni = $job->getStartTime();
         $dtEnd = $job->getEndTime();
@@ -211,13 +211,13 @@ class JobController extends Controller {
         // Get parameters
         $dtIni = $request->query->get('dt_ini', $dtIniTrb);
         $dtEnd = $request->query->get('dt_end', $dtNow);
-
+        
         if (!$dtIni instanceof \DateTime) {
-            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtIni);
+            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtIni);
         }
 
         if (!$dtEnd instanceof \DateTime) {
-            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtEnd);
+            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtEnd);
         }
 
         $jobRepository = $em->getRepository('BaculaStatusBundle:Job');
@@ -311,8 +311,8 @@ class JobController extends Controller {
 
 
         return $this->render('BaculaStatusBundle:Job:dashboard.html.twig', array(
-                    'dt_ini'          => $dtIni->format($this->container->getParameter('date_format')),
-                    'dt_end'          => $dtEnd->format($this->container->getParameter('date_format')),
+                    'dt_ini'          => $dtIni->format($this->container->getParameter('date_format_php')),
+                    'dt_end'          => $dtEnd->format($this->container->getParameter('date_format_php')),
                     'graphTotalJobs'  => json_encode($graphTotalJobs, JSON_NUMERIC_CHECK),
                     'graphTotalFiles' => json_encode($graphTotalFiles, JSON_NUMERIC_CHECK),
                     'graphJobType'    => json_encode($graphJobType, JSON_NUMERIC_CHECK),

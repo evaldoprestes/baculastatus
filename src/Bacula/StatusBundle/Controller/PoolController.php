@@ -74,7 +74,7 @@ class PoolController extends Controller {
                     $dataMedia['useDuration'] = $defaultDefinitions->formatTimeStamp($media->getVolUseDuration());
                     $dataMedia['retention']   = $defaultDefinitions->formatTimeStamp($media->getVolRetention());
                     // Use date format 'Y-m-d h:i' to sorter correctly
-                    $dataMedia['lastWritten'] = $media->getLastWritten()->format('Y-m-d h:i'); //$media->getLastWritten()->format($this->container->getParameter('date_format'));
+                    $dataMedia['lastWritten'] = $media->getLastWritten()->format($this->container->getParameter('date_format_php')); //$media->getLastWritten()->format($this->container->getParameter('date_format'));
                     $dataMediaTmp[]           = $dataMedia;
                 }
                 $dataPool['media'] = $dataMediaTmp;

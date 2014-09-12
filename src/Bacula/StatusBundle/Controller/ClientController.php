@@ -69,12 +69,12 @@ class ClientController extends Controller {
         $dtIni = $request->query->get('dt_ini', $dt24hours);
         $dtEnd = $request->query->get('dt_end', $dtNow);
 
-        if (!$dtIni instanceof \DateTime) {
-            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtIni);
+        if (!$dtIni instanceof \DateTime) {            
+            $dtIni = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtIni);
         }
 
         if (!$dtEnd instanceof \DateTime) {
-            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format'), $dtEnd);
+            $dtEnd = \DateTime::createFromFormat($this->container->getParameter('date_format_php'), $dtEnd);
         }        
         
         $clientRepository = $this->getDoctrine()->getRepository('BaculaStatusBundle:Client');
@@ -128,8 +128,8 @@ class ClientController extends Controller {
         }
 
         return $this->render('BaculaStatusBundle:Client:dashboard.html.twig', array(
-                    'dt_ini'               => $dtIni->format($this->container->getParameter('date_format')),
-                    'dt_end'               => $dtEnd->format($this->container->getParameter('date_format')),
+                    'dt_ini'               => $dtIni->format($this->container->getParameter('date_format_php')),
+                    'dt_end'               => $dtEnd->format($this->container->getParameter('date_format_php')),
                     'graphJob'             => $graphJob,
                     'graphFiles'           => $graphFiles,
                     'graphSize'            => $graphSize,

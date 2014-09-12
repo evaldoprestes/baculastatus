@@ -9,25 +9,18 @@
             <div class="row">
                 <div class='col-sm-4 col-xs-12'>
                     <label for="datetimepicker1">{{'label.dt.ini'|trans}}</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-
-                            <input name="dt_ini" type='datetime' class="form-control" required="required"  value="{{ dt_ini }}" />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="input-group date" id="datetimepicker1">
+                        <input name="dt_ini" type="text" class="form-control" data-date-format="{{ date_format_js }}" value="{{ dt_ini }}"/>
+                        <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                    </div>            
                 </div>
 
                 <div class='col-sm-4 col-xs-12'>
                     <label for="datetimepicker2">{{'label.dt.end'|trans}}</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker2'>
-                            <input name="dt_end" type='datetime' class="form-control" required="required"  value="{{ dt_end }}" />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
+                    <div class="input-group date" id="datetimepicker2">
+                        <input name="dt_end" type="text" class="form-control" data-date-format="{{ date_format_js }}" value="{{ dt_end }}"/>
+                        <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                    </div>                     
                 </div>
 
                 <div class='col-sm-4 col-xs-12'>  
@@ -50,38 +43,35 @@
             <div id="graphJobType" style="height: 200px;"></div>
             <script type="text/javascript">
                 $(function () {
-                    Morris.Donut({
-                        element: 'graphJobType',
+                Morris.Donut({
+                element: 'graphJobType',
                         data: {{ graphJobType|raw }} 
-                    });
-                });           
-            </script>               
+                });
+                });            </script>               
         </div>  
-                    
+
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <h6 class="text-center graphTitle">{{'title.graph.jobs.status'|trans}}</h6>
             <div id="graphJobStatus" style="height: 200px;"></div>
             <script type="text/javascript">
-                $(function () {
-                    Morris.Donut({
+                        $(function () {
+                        Morris.Donut({
                         element: 'graphJobStatus',
-                        data: {{ graphJobStatus|raw }} 
-                    });
-                });           
-            </script>               
+                                data: {{ graphJobStatus|raw }} 
+                        });
+                        });            </script>               
         </div>  
-                    
+
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <h6 class="text-center graphTitle">{{'title.graph.jobs.level'|trans}}</h6>
             <div id="graphJobLevel" style="height: 200px;"></div>
             <script type="text/javascript">
-                $(function () {
-                    Morris.Donut({
+                        $(function () {
+                        Morris.Donut({
                         element: 'graphJobLevel',
-                        data: {{ graphJobLevel|raw }} 
-                    });
-                });           
-            </script>               
+                                data: {{ graphJobLevel|raw }} 
+                        });
+                        });            </script>               
         </div>                      
     </div>    
     <div class="row">
@@ -120,23 +110,6 @@
         </div>                        
     </div>
 
-    <script type="text/javascript">
-                $(document).ready(function() {
-
-        $('#datetimepicker1').datetimepicker({
-        language: '{{ app.request.locale }}'
-        });
-                $('#datetimepicker2').datetimepicker({
-        language: '{{ app.request.locale }}'
-        });
-                $("table").tablecloth({
-        striped: true,
-                sortable: true,
-                condensed: true
-        });
-        });
-
-    </script>  
 {% endblock %}
 
 

@@ -1,3 +1,11 @@
+2014-09-12
+-------------------------------------------------------
+- Several bug fixes
+- Remove php-intl extension dependence
+- Removed the "date_format" parameter and added two new parameters 
+  "date_format_php" and "date_format_js" in "parameters.yml" file
+- Improvements in visual
+
 2014-05-13
 -------------------------------------------------------
 - Add new patameter "default_time_interval_report" - default 1 day
