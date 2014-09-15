@@ -25,6 +25,6 @@ parameters:
     #     Links below:
     #
     # date_format_php - See http://php.net/manual/en/function.date.php
-    date_format_php: 'm/d/Y h:i' 
+    date_format_php: 'm/d/Y H:i' 
     # date_format_js - See http://momentjs.com/docs/#/parsing/string-format/
     date_format_js: 'MM/DD/YYYY HH:mm'     
