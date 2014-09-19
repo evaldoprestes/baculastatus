@@ -1,3 +1,3 @@
 /app/cache/prod
 /app/cache/dev
-/app/logs
+/app/logs/*.log
