@@ -13,10 +13,13 @@ Tool developed to monitor the backups made by bacula. The goal is to provide a c
 [baculastatus album](https://plus.google.com/photos/109969415199973437597/albums/6008162396758304289)
 
 - - - - 
-### Requeriments:
+### Requirements:
 
 - Apache
 - PHP 5.x
+- php-pdo
+- php-mysql (or php-pgsql) 
+- php-xml
 - Connection data of bacula database
 
 - - - - 
